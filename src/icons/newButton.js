@@ -11,7 +11,7 @@ const propTypes = {
   toRoute: PropTypes.func.isRequired
 }
 
-class NewReminder extends Component {
+class NewButton extends Component {
   constructor(props) {
     super(props)
 
@@ -26,7 +26,6 @@ class NewReminder extends Component {
   }
 
   goToAddNew() {
-    console.log('aaa', this.props.toRoute)
     this.props.toRoute({
       name: 'Add a new reminder',
       component: AddNew
@@ -34,7 +33,6 @@ class NewReminder extends Component {
   }
 
   render() {
-    console.log('new reminder props::', this.styles.icon)
     return (
       <TouchableHighlight onPress={this.goToAddNew.bind(this)}>
         <Image
@@ -46,7 +44,7 @@ class NewReminder extends Component {
   }
 }
 
-export default NewReminder
+export default NewButton
 
 // import React, { Component } from "react";
 // import { StyleSheet, Image } from 'react-native';
