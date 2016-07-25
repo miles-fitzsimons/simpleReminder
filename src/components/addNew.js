@@ -15,17 +15,19 @@ class AddNew extends Component {
   constructor(props) {
     super(props)
     // Set default reminder day/time to tomorrow at 6:00pm
-    let today = new Date()
-    console.log('date', today)
-
-    // let day = dateNow.getDate()
-    // today.setDate(today.getDate() + 1)
-    console.log('day', today)
+    var a = moment().add(1, 'days').set({hour: 8, minute: 0, second: 0, millisecond: 0})
+    console.log('aaa', a)
 
     this.state = {
       reminderText: '',
-      datetime: today
     }
+  }
+
+  saveReminder() {
+    console.log('fhfhdhd')
+    // Figure next key
+    
+
   }
 
   render() {
@@ -41,15 +43,15 @@ class AddNew extends Component {
         <Text>at</Text>
         <DatePicker
           style={{width: 200}}
-          date={this.state.datetime}
           format="DD-MM-YYYY HH:mm"
+          date={moment().add(1, 'days').set({hour: 8, minute: 0, second: 0, millisecond: 0})}
           minDate={moment().format('DD MM YYYY')}
           mode="datetime"
           showIcon={true}
           onDateChange={(datetime) => {this.setState({datetime: datetime});}}
         />
         <TouchableHighlight
-          onPress={() => {console.log('hi')}}
+          onPress={this.saveReminder}
           style={styles.saveButton}
         >
           <Text>Save</Text>
