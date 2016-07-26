@@ -5,12 +5,15 @@ import {
   TextInput,
   TouchableHighlight,
   StyleSheet,
-  AsyncStorage
+  AsyncStorage,
+  DeviceEventEmitter
 } from 'react-native'
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
 import Home from './home'
 import NewButton from '../icons/newButton'
+import Notification from 'react-native-system-notification'
+import createNotification from '../lib/createNotification'
 
 class AddNew extends Component {
   constructor(props) {
@@ -41,9 +44,9 @@ class AddNew extends Component {
         nextKey = nextKey.toString()
         var item = {task: this.state.reminderText, time: this.state.datetime}
         item = JSON.stringify(item)
-        console.log(nextKey, item)
         AsyncStorage.setItem(nextKey, item)
           .then(() => {
+            createNotification(this.state.reminderText, this.state.datetime)
             this.backHome()
           })
 

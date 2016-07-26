@@ -5,43 +5,23 @@ import {
   ListView,
   TouchableHighlight,
   AsyncStorage,
-  StyleSheet
+  StyleSheet,
+  DeviceEventEmitter
 } from 'react-native'
 import moment from 'moment'
 import EditReminder from './editReminder'
-// USED TO SET INITIAL DATA. PERSISTENT
-// AsyncStorage.removeItem('1')
-// AsyncStorage.removeItem('2')
-// AsyncStorage.removeItem('3')
-// AsyncStorage.removeItem('4')
-// AsyncStorage.removeItem('5')
-// const task1 = 'Walk to school'
-// const time1 = moment().add(1, 'days')
-// const task2 = 'Walk home'
-// const time2 = moment().add(2, 'days')
-// const task3 = 'Do yoga'
-// const time3 = moment().add(3, 'days')
-// console.log('time', time1)
+import Notification from 'react-native-system-notification'
 
-// data1 = {task: task1, time: time1}
-// data2 = {task: task2, time: time2}
-// data3 = {task: task3, time: time3}
+Notification.create({
+  subject: 'Testing testing',
+  message: '123',
+  action: 'TEST',
+  bigText: 'BIGGGGIE'
+})
 
-// // const data1 = {task: 'Hi Dan!!', time: '19 March 2016'}
-// // const data2 = {task: 'Walk cat', time: '17 March 2016'}
-// // const data3 = {task: 'Make lunch', time: '18 March 2016'}
-// data1 = JSON.stringify(data1)
-// data2 = JSON.stringify(data2)
-// data3 = JSON.stringify(data3)
-// AsyncStorage.setItem('1', data1)
-// AsyncStorage.setItem('2', data2)
-// AsyncStorage.setItem('3', data3)
-// for(var i =1; i < 45; i++ ) {
-//   var temp = i.toString()
-//   AsyncStorage.removeItem(temp)
-// }
-
-// AsyncStorage.removeItem('-Infinity')
+// Notification.addListener('press', (e) => {
+//   console.log(e)
+// })
 
 class Home extends Component{
   constructor(props) {
@@ -82,6 +62,7 @@ class Home extends Component{
   }
 
   render() {
+
     return (
       this.state.isLoading ?
       <View>

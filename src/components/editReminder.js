@@ -11,6 +11,9 @@ import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
 import Home from './home'
 import NewButton from '../icons/newButton'
+import deleteReminder from '../lib/deleteReminder'
+
+console.log(deleteReminder)
 
 class EditReminder extends Component {
 	constructor(props) {
@@ -29,14 +32,6 @@ class EditReminder extends Component {
 		})
 	}
 
-	deleteReminder() {
-		AsyncStorage
-			.removeItem(this.props.itemKey)
-			.then (() => {
-				this.backHome()
-			})
-	}
-
 	updateReminder() {
 		var item={task: this.state.reminderText, time: this.state.datetime}
 		item = JSON.stringify(item)
@@ -48,16 +43,15 @@ class EditReminder extends Component {
 	}
 
 	render() {
-		console.log('edit state', this.props)
 		return (
 			<View style={styles.container}>
 				<TouchableHighlight
 					style={styles.button}
-					onPress={this.deleteReminder.bind(this)}
+					onPress={() => {deleteReminder(this.props.itemKey); this.backHome()}}
 				>
 					<Text>Delete</Text>
 				</TouchableHighlight>
-				<Text>EDIT PAGE!!</Text>
+				<Text>THIS IS THE EDIT PAGE!!</Text>
 				<TextInput
 					style={styles.textInput}
 					defaultValue={this.props.task}
