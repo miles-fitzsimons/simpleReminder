@@ -4,9 +4,6 @@ function deleteReminder (key) {
 	console.log('deletinggggg', key)
 	AsyncStorage
 		.removeItem(key)
-		.then(() => {
-			
-		})
 }
 
 export default deleteReminder

@@ -11,17 +11,8 @@ import {
 import moment from 'moment'
 import EditReminder from './editReminder'
 import Notification from 'react-native-system-notification'
-
-Notification.create({
-  subject: 'Testing testing',
-  message: '123',
-  action: 'TEST',
-  bigText: 'BIGGGGIE'
-})
-
-// Notification.addListener('press', (e) => {
-//   console.log(e)
-// })
+import deleteReminder from '../lib/deleteReminder'
+import NewButton from '../icons/newButton'
 
 class Home extends Component{
   constructor(props) {
@@ -62,6 +53,16 @@ class Home extends Component{
   }
 
   render() {
+    Notification.addListener('press', (e) => {
+      let id = e.payload.id
+      id = id.toString()
+      deleteReminder(id)
+      // this.props.toRoute({
+      //   name: 'Simple Reminder',
+      //   component: Home,
+      //   rightCorner: NewButton
+      // })
+    })
 
     return (
       this.state.isLoading ?
@@ -73,13 +74,18 @@ class Home extends Component{
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) => 
-            <View>
-              <TouchableHighlight
+          <View>
+            <TouchableHighlight
               onPress={this.goToEditPage.bind(this, rowData)}
-              >
-            <Text style={styles.listItem}>{rowData.task}, {rowData.time}</Text>
-              </TouchableHighlight>
-            </View>}
+              style={styles.listItem}
+              underlayColor={'#5cafec'}
+            >
+              <View>
+                <Text style={styles.taskFont}>{rowData.task}</Text>
+                <Text style={styles.timeFont}>{rowData.time}</Text>
+              </View>
+            </TouchableHighlight>
+          </View>}
         />
       </View>
     )
@@ -95,11 +101,30 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   listItem: {
-    // WHY DON'T YOU WORK?!?!?!?!
-    borderColor: 'black',
+    borderColor: '#5cafec',
     borderStyle: 'solid',
-    borderWidth: 5,
-    color: 'red',
-    fontSize: 20
+    borderWidth: 2,
+    marginTop: 15,
+    width: 275,
+    minHeight: 75,
+    borderRadius: 5,
+    backgroundColor: '#5cafec',
+    flex: 1,
+    justifyContent: 'center'
+  },
+  taskFont: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    textAlign: 'center',
+    marginTop: 5,
+    marginBottom: 5
+  },
+  timeFont: {
+    color: '#FFFFFF',
+    fontSize: 17,
+    textAlign: 'center',
+    marginTop: 5,
+    marginBottom: 5
+
   }
 })

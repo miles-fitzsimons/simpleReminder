@@ -5,15 +5,14 @@ import {
 	TextInput,
 	StyleSheet,
 	TouchableHighlight,
-	AsyncStorage
+	AsyncStorage,
+	Image
 } from 'react-native'
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
 import Home from './home'
 import NewButton from '../icons/newButton'
 import deleteReminder from '../lib/deleteReminder'
-
-console.log(deleteReminder)
 
 class EditReminder extends Component {
 	constructor(props) {
@@ -46,12 +45,15 @@ class EditReminder extends Component {
 		return (
 			<View style={styles.container}>
 				<TouchableHighlight
-					style={styles.button}
+					underlayColor={'#5cafec'}
 					onPress={() => {deleteReminder(this.props.itemKey); this.backHome()}}
 				>
-					<Text>Delete</Text>
+					<Image
+						source={require('../images/deleteBin.png')}
+						style={styles.deleteBin}
+					/>
 				</TouchableHighlight>
-				<Text>THIS IS THE EDIT PAGE!!</Text>
+				<Text style={{fontSize: 20}}>Or edit this reminder below</Text>
 				<TextInput
 					style={styles.textInput}
 					defaultValue={this.props.task}
@@ -63,14 +65,15 @@ class EditReminder extends Component {
 					date={this.state.datetime}
 					minDate={moment()}
 					mode="datetime"
-					showIcon={true}
-					onDateChange={(datetime) => {console.log(datetime);this.setState({datetime: datetime})}}
+					showIcon={false}
+					onDateChange={(datetime) => {this.setState({datetime: datetime})}}
 				/>
 				<TouchableHighlight
 					onPress={this.updateReminder.bind(this)}
 					style={styles.button}
+					underlayColor={'#5cafec'}
 				>
-					<Text>Update</Text>
+					<Text style={{fontSize: 20, color: '#FFFFFF'}}>Save</Text>
 				</TouchableHighlight>
 			</View>
 		)
@@ -86,12 +89,21 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   button: {
-    backgroundColor: 'red',
+    backgroundColor: '#5cafec',
     marginTop: 20,
-    width: 200,
-    height: 100
+    width: 100,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5
   },
   textInput: {
     width: 250
+  },
+  deleteBin: {
+  	resizeMode: 'contain',
+  	height: 50,
+  	marginTop: 20,
+  	marginBottom: 20
   }
 })

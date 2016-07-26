@@ -46,7 +46,7 @@ class AddNew extends Component {
         item = JSON.stringify(item)
         AsyncStorage.setItem(nextKey, item)
           .then(() => {
-            createNotification(this.state.reminderText, this.state.datetime)
+            createNotification(this.state.reminderText, this.state.datetime, nextKey)
             this.backHome()
           })
 
@@ -68,14 +68,15 @@ class AddNew extends Component {
           date={this.state.datetime}
           minDate={moment()}
           mode="datetime"
-          showIcon={true}
+          showIcon={false}
           onDateChange={(datetime) => {this.setState({datetime: datetime})}}
         />
         <TouchableHighlight
           onPress={this.saveReminder.bind(this)}
           style={styles.saveButton}
+          underlayColor={'#5cafec'}
         >
-          <Text>Save</Text>
+          <Text style={{fontSize: 20, color: '#FFFFFF'}}>Save</Text>
         </TouchableHighlight>
 
       </View>
@@ -92,10 +93,13 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   saveButton: {
-    backgroundColor: 'red',
+    backgroundColor: '#5cafec',
     marginTop: 20,
-    width: 200,
-    height: 100
+    width: 100,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5
   },
   textInput: {
     width: 250

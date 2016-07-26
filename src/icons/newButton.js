@@ -45,26 +45,3 @@ class NewButton extends Component {
 }
 
 export default NewButton
-
-// import React, { Component } from "react";
-// import { StyleSheet, Image } from 'react-native';
-
-// class NewReminder extends Component {
-//   render() {
-//     return (
-//       <Image source={require('../images/plus.png')} style={styles.backButton} />
-//     );
-//   }
-// }
-
-// const styles = StyleSheet.create({
-//   backButton: {
-//     width: 20,
-//     height: 17,
-//     marginLeft: 10,
-//     marginTop: 3,
-//     marginRight: 10
-//     },
-// });
-
-// export default NewReminder
