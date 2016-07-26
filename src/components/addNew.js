@@ -5,34 +5,52 @@ import {
   TextInput,
   TouchableHighlight,
   StyleSheet,
-  Picker
+  AsyncStorage
 } from 'react-native'
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
-
+import Home from './home'
+import NewButton from '../icons/newButton'
 
 class AddNew extends Component {
   constructor(props) {
     super(props)
     // Set default reminder day/time to tomorrow at 6:00pm
-    var a = moment().add(1, 'days').set({hour: 8, minute: 0, second: 0, millisecond: 0})
-    console.log('aaa', a)
-
+    var datetime = moment().add(1, 'days').set({hour: 8, minute: 0, second: 0, millisecond: 0}).format("DD-MM-YYYY hh:mm A")
     this.state = {
       reminderText: '',
+      datetime: datetime
     }
   }
 
-  saveReminder() {
-    console.log('fhfhdhd')
-    // Figure next key
-    
+  backHome() {
+    this.props.toRoute({
+      name: 'Simple Reminder',
+      component: Home,
+      rightCorner: NewButton
+    })
+  }
 
+  saveReminder() {
+    // Figure next key
+    AsyncStorage
+      .getAllKeys()
+      .then((keys) => {
+        var nextKey = keys.length ? 
+        Math.max(...keys) + 1 : 1
+        nextKey = nextKey.toString()
+        var item = {task: this.state.reminderText, time: this.state.datetime}
+        item = JSON.stringify(item)
+        console.log(nextKey, item)
+        AsyncStorage.setItem(nextKey, item)
+          .then(() => {
+            this.backHome()
+          })
+
+      })
   }
 
   render() {
-    // Figure out new key id here?
-    console.log('add new props', this.state)
     return (
       <View style={styles.container}>
         <TextInput
@@ -43,15 +61,15 @@ class AddNew extends Component {
         <Text>at</Text>
         <DatePicker
           style={{width: 200}}
-          format="DD-MM-YYYY HH:mm"
-          date={moment().add(1, 'days').set({hour: 8, minute: 0, second: 0, millisecond: 0})}
-          minDate={moment().format('DD MM YYYY')}
+          format="DD-MM-YYYY hh:mm A"
+          date={this.state.datetime}
+          minDate={moment()}
           mode="datetime"
           showIcon={true}
-          onDateChange={(datetime) => {this.setState({datetime: datetime});}}
+          onDateChange={(datetime) => {this.setState({datetime: datetime})}}
         />
         <TouchableHighlight
-          onPress={this.saveReminder}
+          onPress={this.saveReminder.bind(this)}
           style={styles.saveButton}
         >
           <Text>Save</Text>
@@ -71,7 +89,10 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   saveButton: {
-    backgroundColor: 'red'
+    backgroundColor: 'red',
+    marginTop: 20,
+    width: 200,
+    height: 100
   },
   textInput: {
     width: 250
