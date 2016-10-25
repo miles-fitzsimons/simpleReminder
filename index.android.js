@@ -4,7 +4,6 @@ import {
   AppRegistry
 } from 'react-native'
 import Router from 'react-native-simple-router'
-import Home from './src/components/home'
 import NewButton from './src/icons/newButton'
 import BackButton from './src/icons/backButton'
 
@@ -20,10 +19,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#5cafec'
   },
 })
-
-// const statusBarProps = {
-//   backgroundColor: '#1b6298',
-// };
 
 class simpleReminder extends Component {
   render() {

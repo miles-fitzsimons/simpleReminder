@@ -7,12 +7,3 @@ function deleteReminder (key) {
 }
 
 export default deleteReminder
-
-
-	// deleteReminder() {
-	// 	AsyncStorage
-	// 		.removeItem(this.props.itemKey)
-	// 		.then (() => {
-	// 			this.backHome()
-	// 		})
-	// }

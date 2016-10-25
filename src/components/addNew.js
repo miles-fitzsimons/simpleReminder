@@ -57,7 +57,7 @@ class AddNew extends Component {
     return (
       <View style={styles.container}>
         <TextInput
-          style={styles.textInput}
+          style={{styles.textInput}}
           placeholder="Remind me to..."
           onChangeText={(text) => {this.setState({reminderText: text})}}
         />
